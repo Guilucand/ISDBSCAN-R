@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1549383888101.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1583618862",
+    "id" : "35FC3069",
+    "lastKnownWriteTime" : 1549068249,
+    "last_content_update" : 1549068249,
+    "path" : "~/Scrivania/Rpackage/mbkmeans/R/blocksize.R",
+    "project_path" : "R/blocksize.R",
+    "properties" : {
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

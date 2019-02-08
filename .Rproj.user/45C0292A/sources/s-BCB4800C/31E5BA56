@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1549620891312.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "31E5BA56",
+    "lastKnownWriteTime" : 1549637604,
+    "last_content_update" : 1549637604514,
+    "path" : "~/Scrivania/Rpackage/mbkmeans/src/cIsdbscan.cpp",
+    "project_path" : "src/cIsdbscan.cpp",
+    "properties" : {
+        "cursorPosition" : "118,48",
+        "scrollLine" : "93"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "cpp"
+}

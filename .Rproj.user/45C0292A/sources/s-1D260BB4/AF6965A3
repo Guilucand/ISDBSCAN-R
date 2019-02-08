@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1549383894545.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "AF6965A3",
+    "lastKnownWriteTime" : 1549383567,
+    "last_content_update" : 1549383567,
+    "path" : "~/Scrivania/Rpackage/mbkmeans/R/kmeans.R",
+    "project_path" : "R/kmeans.R",
+    "properties" : {
+        "cursorPosition" : "6,10",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

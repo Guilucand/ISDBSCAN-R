@@ -1,0 +1,66 @@
+#' @importFrom Rcpp sourceCpp
+#' @useDynLib ISDBSCAN, .registration = TRUE
+#'
+NULL
+
+
+#' @title Mini-Batch k-means for large single cell sequencing data
+#'
+#' @description This is an implementation of the mini-batch k-means algorithm of
+#'   Sculley (2010) for large single cell sequencing data with the
+#'   dimensionality reduction results as input in in the reducedDim() slot.
+#'
+#' @details The implementation is largely based on the
+#'   \code{\link[ClusterR]{MiniBatchKmeans}} function of the \code{ClusterR}
+#'   package. The contribution of this package is to provide support for on-disk
+#'   data representations such as HDF5, through the use of \code{DelayedMatrix}
+#'   and \code{HDF5Matrix} objects, as well as for sparse data representation
+#'   through the classes of the \code{Matrix} package.
+#'   We also provide high-level methods for objects of class
+#'   \code{SummarizedExperiment}, \code{SingleCellExperiment}, and
+#'   \code{LinearEmbeddingMatrix}.
+#'
+
+
+
+
+
+#'@rdname ISDBSCAN
+#'@export
+#'@importClassesFrom DelayedArray DelayedMatrix
+#'@param k the number of clusters
+#'@param batch_size the size of the mini batches
+#'@details This function performs k-means clustering using mini batches.
+#'
+#'\strong{kmeans++}: kmeans++ initialization. Reference :
+#'http://theory.stanford.edu/~sergei/papers/kMeansPP-soda.pdf AND
+#'http://stackoverflow.com/questions/5466323/how-exactly-does-k-means-work
+#'
+#'\strong{random}: random selection of data rows as initial centroids
+#'
+#'@references https://github.com/mlampros/ClusterR
+#'
+#'@examples
+#'x<-matrix(rnorm(100), ncol=10)
+#'mbkmeans(x,clusters = 3)
+#'
+setMethod(
+  f = "ISDBSCAN",
+  signature = signature(x ="matrix"),
+  definition = function(x, k, batch_size = blocksize(x))
+  {
+
+    if(!is(x, "matrix") & !is(x, "Matrix") & !is(x, "HDF5Matrix") &
+       !is(x, "DelayedMatrix")) {
+
+      stop("x is not of a supported type")
+
+    } else {
+
+      fit <- ISDBSCAN(t(x), k, batch_size)
+
+    }
+
+    return(fit)
+})
+
