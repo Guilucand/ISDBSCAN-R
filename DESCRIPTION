@@ -3,14 +3,14 @@ Type: Package
 Title: Clustering Large Single-Cell Datasets
 Version: 0.1.0
 Authors@R:
-    c(person("Davide", "Risso", role = c("aut", "cre", "cph"),
-             email = "risso.davide@gmail.com"),
-      person("Stephanie", "Hicks", role = c("aut", "cph"),
-             email = "shicks19@jhu.edu"),
-      person("Elizabeth", "Purdom", role = c("aut", "cph"),
-             email = "epurdom@stat.berkeley.edu"))
+    c(person("Benjamin", "Huremagic", role = c("aut", "cre", "cph"),
+             email = "benjamin.huremagic@gmail.com"),
+      person("Vincenzo", "Bonnici", role = c("aut", "cph"),
+             email = "vincenzo.bonnici@univr.it"),
+      person("Rosalba", "Giugno", role = c("aut", "cph"),
+             email = "rosalba.giugno@univr.it"))
 Description:
-    Implements the mini-batch k-means algorithm for large
+    Implements the ISDBSCAN algorithm for large
     datasets, including support for on-disk data representation.
 Depends:
     R (>= 3.5)

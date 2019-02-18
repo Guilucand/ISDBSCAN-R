@@ -2,9 +2,9 @@
 % Please edit documentation in R/RcppExports.R
 \name{cIsdbscan}
 \alias{cIsdbscan}
-\title{Mini_batch}
+\title{cIsdbscan}
 \usage{
-cIsdbscan(data, k, batch_size)
+cIsdbscan(data, k, batch_size, stratif)
 }
 \arguments{
 \item{data}{numeric matrix or integer matrix or HDF5Matrix}
@@ -17,7 +17,7 @@ cIsdbscan(data, k, batch_size)
 a list with the following attributes: centroids, WCSS_per_cluster, best_initialization, iters_per_initialization
 }
 \description{
-Mini-batch-k-means for both matrix and HDF5Matrix
+cIsdbscan for both matrix and HDF5Matrix
 }
 \details{
 This function performs k-means clustering using mini batches.

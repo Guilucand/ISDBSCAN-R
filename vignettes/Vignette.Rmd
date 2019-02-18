@@ -1,0 +1,59 @@
+---
+title: "An introduction to ISDBSCAN"
+author: "Benjamin Huremagic"
+date: "Last modified: November 08, 2018; Compiled: `r format(Sys.time(), '%B %d, %Y')`"
+bibliography: biblio.bib
+output:
+  BiocStyle::html_document:
+    toc: true
+vignette: >
+  %\VignetteEncoding{UTF-8}
+---
+
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{ISDSBSCAN vignette}
+-->
+
+# Installation
+
+To install the package, please use the following.
+
+```{r, eval=FALSE}
+devtools::install_github("drisso/mbkmeans")
+```
+
+# Introduction
+
+This vignette provides an introductory example on how
+to work with the `ISDBSCAN` package, which contains an 
+implementation of the density based algorithm (ISDBSCAN)
+for large single-cell sequencing data.
+
+The main function to be used by the users is `ISDBSCAN`.
+This is implemented as an S4 generic and methods are
+implemented for `matrix`, `Matrix`, `HDF5Matrix`.
+
+Our main contribution here is to provide an 
+interface to the `DelayedArray` and `HDF5Array`
+packages, allowing the user to run the algorithm 
+on data that do not fit entirely in memory.
+
+The motivation for this work is the clustering of 
+large single-cell RNA-sequencing (scRNA-seq) datasets, 
+and hence the main focus is on Bioconductor's 
+`SingleCellExperiment`and `SummarizedExperiment` 
+data container. For this reason, `ISDBSCAN` assumes a 
+data representation typical of genomic data, in which 
+genes (variables) are in the rows and cells 
+(observations) are in the column. This is contrary to 
+most other statistical applications.
+
+This algorithm can be run with a preprocesing, 
+called stratification `stratif=TRUE`. This procedure
+will induce an order in the dataset based on the influence 
+of the points. When the analized datasets are very large, and don't
+fit into the RAM memory, it would be better to avoid this tipe 
+of preprocesing.
+
+## Example dataset

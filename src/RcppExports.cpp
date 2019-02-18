@@ -7,21 +7,22 @@
 using namespace Rcpp;
 
 // cIsdbscan
-Rcpp::List cIsdbscan(SEXP data, int k, int batch_size);
-RcppExport SEXP _ISDBSCAN_cIsdbscan(SEXP dataSEXP, SEXP kSEXP, SEXP batch_sizeSEXP) {
+Rcpp::List cIsdbscan(SEXP data, int k, int batch_size, bool stratif);
+RcppExport SEXP _ISDBSCAN_cIsdbscan(SEXP dataSEXP, SEXP kSEXP, SEXP batch_sizeSEXP, SEXP stratifSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type data(dataSEXP);
     Rcpp::traits::input_parameter< int >::type k(kSEXP);
     Rcpp::traits::input_parameter< int >::type batch_size(batch_sizeSEXP);
-    rcpp_result_gen = Rcpp::wrap(cIsdbscan(data, k, batch_size));
+    Rcpp::traits::input_parameter< bool >::type stratif(stratifSEXP);
+    rcpp_result_gen = Rcpp::wrap(cIsdbscan(data, k, batch_size, stratif));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_ISDBSCAN_cIsdbscan", (DL_FUNC) &_ISDBSCAN_cIsdbscan, 3},
+    {"_ISDBSCAN_cIsdbscan", (DL_FUNC) &_ISDBSCAN_cIsdbscan, 4},
     {NULL, NULL, 0}
 };
 

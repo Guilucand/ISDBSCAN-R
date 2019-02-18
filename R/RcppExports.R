@@ -2,9 +2,9 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #'
-#' Mini_batch
+#' cIsdbscan
 #'
-#' Mini-batch-k-means for both matrix and HDF5Matrix
+#' cIsdbscan for both matrix and HDF5Matrix
 #'
 #'@param data numeric matrix or integer matrix or HDF5Matrix
 #'@param k the number of clusters
@@ -21,7 +21,7 @@
 #'https://github.com/mlampros/ClusterR
 #'
 #' @export
-cIsdbscan <- function(data, k, batch_size) {
-    .Call(`_ISDBSCAN_cIsdbscan`, data, k, batch_size)
+cIsdbscan <- function(data, k, batch_size, stratif) {
+    .Call(`_ISDBSCAN_cIsdbscan`, data, k, batch_size, stratif)
 }
 
