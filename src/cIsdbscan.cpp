@@ -2,11 +2,11 @@
 # include <RcppArmadillo.h>
 // [[Rcpp::depends("RcppArmadillo")]]
 // [[Rcpp::depends(ClusterR)]]
-// [[Rcpp::plugins(openmp)]]
 // [[Rcpp::plugins(cpp11)]]
 
 #ifdef _OPENMP
 #include <omp.h>
+// [[Rcpp::plugins(openmp)]]
 #endif
 
 #include "beachmat/numeric_matrix.h"
@@ -77,6 +77,7 @@ int get_ncol(const T& data){
 //calc KNNDists full dataset in memory
 void calcKnnDists( Rcpp::NumericMatrix &data,  Rcpp::NumericMatrix &knnDists,  Rcpp::IntegerMatrix &knnIdx, int &k, int &numRows, int &numCols){
 
+
     Rcpp::NumericVector currentTmpRow(numCols);
     Rcpp::NumericVector tmpRow(numCols);
     Rcpp::IntegerVector pointMaxIdx(numRows); // da passare per riferimento nella versione a chunk
@@ -88,23 +89,25 @@ void calcKnnDists( Rcpp::NumericMatrix &data,  Rcpp::NumericMatrix &knnDists,  R
     }
 
     double total, diff;
+    int i,j,m,n;
+    #pragma omp parallel for private(j,m,n,total,diff,currentTmpRow,tmpRow)
+    for( i = 0; i < numRows; i++){
 
-    for( int i = 0; i < numRows; i++){
         currentTmpRow = data.row(i);
 
-        for( int j = 0; j < numRows; j++){ //cosi calcolo solo metà
+        for(  j = 0; j < numRows; j++){ //cosi calcolo solo metà
             tmpRow = data.row(j);
             total = 0;
 
             if ( i != j){
-                for( int m = 0; m < numCols ;m++){
+                for(  m = 0; m < numCols ;m++){
                     diff = tmpRow(m) - currentTmpRow(m);
                     total += diff * diff;
 
                 }
                 pointMaxValue(i) = knnDists(i,0);
                 pointMaxIdx(i) = 0;
-                for ( int n = 0;  n < k; n++){
+                for (  n = 0;  n < k; n++){
                     if (knnDists(i,n) == 0){
                         pointMaxIdx(i) = n;
                         pointMaxValue(i) = knnDists(i,n);
@@ -123,6 +126,8 @@ void calcKnnDists( Rcpp::NumericMatrix &data,  Rcpp::NumericMatrix &knnDists,  R
             }
         }
     }
+    #pragma omp barrier
+
 }
 
 //calculate KnnDist Chunk
@@ -175,10 +180,12 @@ void sortKnnDists( Rcpp::NumericMatrix &knnDists, Rcpp::IntegerMatrix &knnIdx, i
     bool swapped;
     double swap_tmp;
     int idx_swap_tmp;
+    int j,m;
+
     for(int i = 0; i < numRows; i++){
-        for(int j = 0; j < k - 1; j++){
+        for(j = 0; j < k - 1; j++){
             swapped = false;
-            for(int m = 0; m < k - j - 1; m++){
+            for(m = 0; m < k - j - 1; m++){
                 if(knnDists(i,m) > knnDists(i,m+1)){
                     swap_tmp = knnDists(i,m);
                     knnDists(i,m) = knnDists(i,m+1);

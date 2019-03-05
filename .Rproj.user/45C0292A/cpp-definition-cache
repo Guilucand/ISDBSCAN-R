@@ -3,7 +3,7 @@
         "definitions" : [
             {
                 "column" : 5,
-                "file" : "/home/benjamin/Scrivania/Rpackage/mbkmeans/src/cIsdbscan.cpp",
+                "file" : "/home/benjamin/Scrivania/Rpackage/gitISDBSCAN/src/cIsdbscan.cpp",
                 "kind" : 6,
                 "line" : 26,
                 "name" : "get_nrow(const T &)",
@@ -12,7 +12,7 @@
             },
             {
                 "column" : 5,
-                "file" : "/home/benjamin/Scrivania/Rpackage/mbkmeans/src/cIsdbscan.cpp",
+                "file" : "/home/benjamin/Scrivania/Rpackage/gitISDBSCAN/src/cIsdbscan.cpp",
                 "kind" : 6,
                 "line" : 54,
                 "name" : "get_ncol(const T &)",
@@ -20,16 +20,151 @@
                 "usr" : "c:@FT@>1#Tget_ncol#&1t0.0#"
             },
             {
-                "column" : 12,
-                "file" : "/home/benjamin/Scrivania/Rpackage/mbkmeans/src/cIsdbscan.cpp",
+                "column" : 6,
+                "file" : "/home/benjamin/Scrivania/Rpackage/gitISDBSCAN/src/cIsdbscan.cpp",
                 "kind" : 6,
-                "line" : 102,
-                "name" : "cIsdbscan(SEXP, int, int)",
+                "line" : 78,
+                "name" : "calcKnnDists(Rcpp::NumericMatrix &, Rcpp::NumericMatrix &, Rcpp::IntegerMatrix &, int &, int &, int &)",
                 "parent_name" : "",
-                "usr" : "c:@F@cIsdbscan#*$@S@SEXPREC#I#I#"
+                "usr" : "c:@F@calcKnnDists#&$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#&$@N@Rcpp@C@Matrix>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#&I#S4_#S4_#"
+            },
+            {
+                "column" : 6,
+                "file" : "/home/benjamin/Scrivania/Rpackage/gitISDBSCAN/src/cIsdbscan.cpp",
+                "kind" : 6,
+                "line" : 134,
+                "name" : "calcKnnDists(Rcpp::NumericVector &, Rcpp::NumericMatrix &, Rcpp::NumericMatrix &, Rcpp::IntegerMatrix &, Rcpp::IntegerVector &, Rcpp::NumericVector &, int &, int &, int &, int &, int &, int &)",
+                "parent_name" : "",
+                "usr" : "c:@F@calcKnnDists#&$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#&$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S2_#&$@N@Rcpp@C@Matrix>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#&$@N@Rcpp@C@Vector>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#S0_#&I#S8_#S8_#S8_#S8_#S8_#"
+            },
+            {
+                "column" : 6,
+                "file" : "/home/benjamin/Scrivania/Rpackage/gitISDBSCAN/src/cIsdbscan.cpp",
+                "kind" : 6,
+                "line" : 179,
+                "name" : "sortKnnDists(Rcpp::NumericMatrix &, Rcpp::IntegerMatrix &, int &, int &)",
+                "parent_name" : "",
+                "usr" : "c:@F@sortKnnDists#&$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#&$@N@Rcpp@C@Matrix>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#&I#S4_#"
+            },
+            {
+                "column" : 21,
+                "file" : "/home/benjamin/Scrivania/Rpackage/gitISDBSCAN/src/cIsdbscan.cpp",
+                "kind" : 6,
+                "line" : 206,
+                "name" : "findIsk(Rcpp::IntegerMatrix &, int &, int &, Rcpp::IntegerVector &)",
+                "parent_name" : "",
+                "usr" : "c:@F@findIsk#&$@N@Rcpp@C@Matrix>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#&I#S2_#&$@N@Rcpp@C@Vector>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#"
+            },
+            {
+                "column" : 6,
+                "file" : "/home/benjamin/Scrivania/Rpackage/gitISDBSCAN/src/cIsdbscan.cpp",
+                "kind" : 6,
+                "line" : 249,
+                "name" : "calculateNNKdist(Rcpp::NumericMatrix &, Rcpp::NumericVector &, int &, int &, double &)",
+                "parent_name" : "",
+                "usr" : "c:@F@calculateNNKdist#&$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#&$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#&I#S4_#&d#"
+            },
+            {
+                "column" : 6,
+                "file" : "/home/benjamin/Scrivania/Rpackage/gitISDBSCAN/src/cIsdbscan.cpp",
+                "kind" : 6,
+                "line" : 265,
+                "name" : "calculateRNN(Rcpp::IntegerMatrix &, Rcpp::IntegerVector &, int &, int &)",
+                "parent_name" : "",
+                "usr" : "c:@F@calculateRNN#&$@N@Rcpp@C@Matrix>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#&$@N@Rcpp@C@Vector>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#&I#S4_#"
+            },
+            {
+                "column" : 6,
+                "file" : "/home/benjamin/Scrivania/Rpackage/gitISDBSCAN/src/cIsdbscan.cpp",
+                "kind" : 6,
+                "line" : 282,
+                "name" : "calculateINFLO(Rcpp::NumericMatrix &, Rcpp::IntegerMatrix &, Rcpp::IntegerVector &, Rcpp::NumericVector &, int &, int &, double &)",
+                "parent_name" : "",
+                "usr" : "c:@F@calculateINFLO#&$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#&$@N@Rcpp@C@Matrix>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#&$@N@Rcpp@C@Vector>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#&$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#&I#S8_#&d#"
+            },
+            {
+                "column" : 6,
+                "file" : "/home/benjamin/Scrivania/Rpackage/gitISDBSCAN/src/cIsdbscan.cpp",
+                "kind" : 6,
+                "line" : 321,
+                "name" : "calculateINFLOCorrect(Rcpp::IntegerVector &, Rcpp::IntegerVector &, Rcpp::NumericVector &, int &)",
+                "parent_name" : "",
+                "usr" : "c:@F@calculateINFLOCorrect#&$@N@Rcpp@C@Vector>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#S0_#&$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#&I#"
+            },
+            {
+                "column" : 6,
+                "file" : "/home/benjamin/Scrivania/Rpackage/gitISDBSCAN/src/cIsdbscan.cpp",
+                "kind" : 6,
+                "line" : 330,
+                "name" : "calculateINFLONorm(Rcpp::NumericVector &, int &, double &, double &)",
+                "parent_name" : "",
+                "usr" : "c:@F@calculateINFLONorm#&$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#&I#&d#S3_#"
+            },
+            {
+                "column" : 6,
+                "file" : "/home/benjamin/Scrivania/Rpackage/gitISDBSCAN/src/cIsdbscan.cpp",
+                "kind" : 6,
+                "line" : 337,
+                "name" : "sortPoints(Rcpp::NumericVector &, Rcpp::NumericVector &, Rcpp::IntegerVector &, Rcpp::IntegerVector &, Rcpp::NumericVector &, int &)",
+                "parent_name" : "",
+                "usr" : "c:@F@sortPoints#&$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#&$@N@Rcpp@C@Vector>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#S2_#S0_#&I#"
+            },
+            {
+                "column" : 6,
+                "file" : "/home/benjamin/Scrivania/Rpackage/gitISDBSCAN/src/cIsdbscan.cpp",
+                "kind" : 6,
+                "line" : 374,
+                "name" : "createPartition(Rcpp::NumericVector &, Rcpp::NumericVector &, Rcpp::IntegerVector &, Rcpp::IntegerVector &, double &, int &, int &, double &, bool &, int &)",
+                "parent_name" : "",
+                "usr" : "c:@F@createPartition#&$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#&$@N@Rcpp@C@Vector>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#S2_#&d#&I#S5_#S4_#&b#S5_#"
+            },
+            {
+                "column" : 6,
+                "file" : "/home/benjamin/Scrivania/Rpackage/gitISDBSCAN/src/cIsdbscan.cpp",
+                "kind" : 6,
+                "line" : 413,
+                "name" : "stratifier(Rcpp::NumericVector &, Rcpp::NumericVector &, Rcpp::NumericVector &, Rcpp::IntegerVector &, Rcpp::IntegerVector &, Rcpp::IntegerVector &, int &)",
+                "parent_name" : "",
+                "usr" : "c:@F@stratifier#&$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#S0_#&$@N@Rcpp@C@Vector>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#S2_#S2_#&I#"
+            },
+            {
+                "column" : 6,
+                "file" : "/home/benjamin/Scrivania/Rpackage/gitISDBSCAN/src/cIsdbscan.cpp",
+                "kind" : 6,
+                "line" : 461,
+                "name" : "expandCluster(Rcpp::IntegerMatrix &, Rcpp::IntegerVector &, Rcpp::IntegerVector &, int, int, int, int &, Rcpp::IntegerVector &, Rcpp::LogicalVector &)",
+                "parent_name" : "",
+                "usr" : "c:@F@expandCluster#&$@N@Rcpp@C@Matrix>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#&$@N@Rcpp@C@Vector>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#S2_#I#I#I#&I#S2_#&$@N@Rcpp@C@Vector>#VI10#@N@Rcpp@CT>1#T@PreserveStorage#"
+            },
+            {
+                "column" : 21,
+                "file" : "/home/benjamin/Scrivania/Rpackage/gitISDBSCAN/src/cIsdbscan.cpp",
+                "kind" : 6,
+                "line" : 484,
+                "name" : "calcCluster(Rcpp::IntegerMatrix &, int &, int &, Rcpp::IntegerVector &, Rcpp::LogicalVector &)",
+                "parent_name" : "",
+                "usr" : "c:@F@calcCluster#&$@N@Rcpp@C@Matrix>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#&I#S2_#&$@N@Rcpp@C@Vector>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#&$@N@Rcpp@C@Vector>#VI10#@N@Rcpp@CT>1#T@PreserveStorage#"
+            },
+            {
+                "column" : 21,
+                "file" : "/home/benjamin/Scrivania/Rpackage/gitISDBSCAN/src/cIsdbscan.cpp",
+                "kind" : 6,
+                "line" : 542,
+                "name" : "calcCluster(Rcpp::IntegerMatrix &, int &, int &, Rcpp::IntegerVector &, Rcpp::LogicalVector &, Rcpp::IntegerVector &)",
+                "parent_name" : "",
+                "usr" : "c:@F@calcCluster#&$@N@Rcpp@C@Matrix>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#&I#S2_#&$@N@Rcpp@C@Vector>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#&$@N@Rcpp@C@Vector>#VI10#@N@Rcpp@CT>1#T@PreserveStorage#S3_#"
+            },
+            {
+                "column" : 12,
+                "file" : "/home/benjamin/Scrivania/Rpackage/gitISDBSCAN/src/cIsdbscan.cpp",
+                "kind" : 6,
+                "line" : 617,
+                "name" : "cIsdbscan(SEXP, int, int, bool)",
+                "parent_name" : "",
+                "usr" : "c:@F@cIsdbscan#*$@S@SEXPREC#I#I#b#"
             }
         ],
-        "file" : "/home/benjamin/Scrivania/Rpackage/mbkmeans/src/cIsdbscan.cpp",
-        "file_last_write" : 1549635609
+        "file" : "/home/benjamin/Scrivania/Rpackage/gitISDBSCAN/src/cIsdbscan.cpp",
+        "file_last_write" : 1551774767
     }
 ]
