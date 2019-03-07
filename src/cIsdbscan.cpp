@@ -687,13 +687,14 @@ Rcpp::List cIsdbscan(SEXP data, int k, int batch_size, bool stratif){
 
         for (int i = 0; i < data_n_rows; i++){
             final_matrix->get_row(i, tmp.begin());
-            offset = rowsToRead * counter;
-            for(int j = rowsToRead * counter; j < (rowsToRead * (counter+1)) && j < data_n_rows; j++){
-                final_matrix->get_row(j, tmpForj.begin());
-                submat.row(j-offset) = tmpForj;
+            for (counter = 0; counter < howManyTimesTofitData; counter++){
+                offset = rowsToRead * counter;
+                for(int j = rowsToRead * counter;  j < data_n_rows; j++){
+                    final_matrix->get_row(j, tmpForj.begin());
+                    submat.row(j-offset) = tmpForj;
+                }
+                calcKnnDists(tmp ,submat, knnDists, knnIdx, pointMaxIdx, pointMaxValue, k, data_n_rows, data_n_cols, offset, rowsToRead, i);
             }
-            calcKnnDists(tmp ,submat, knnDists, knnIdx, pointMaxIdx, pointMaxValue, k, data_n_rows, data_n_cols, offset, rowsToRead, i);
-            counter++;
         }
 
         sortKnnDists(knnDists, knnIdx, k, data_n_rows);
