@@ -90,7 +90,6 @@ void calcKnnDists( Rcpp::NumericMatrix &data,  Rcpp::NumericMatrix &knnDists,  R
 
     double total, diff;
     int i,j,m,n;
-    #pragma omp parallel for private(j,m,n,total,diff,currentTmpRow,tmpRow)
     for( i = 0; i < numRows; i++){
 
         currentTmpRow = data.row(i);
@@ -126,7 +125,6 @@ void calcKnnDists( Rcpp::NumericMatrix &data,  Rcpp::NumericMatrix &knnDists,  R
             }
         }
     }
-    #pragma omp barrier
 
 }
 
