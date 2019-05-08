@@ -24,7 +24,7 @@ install_github("InfOmics/ISDBSCAN-R")
 ```
 
 ```R 3.6
-#With R 3.5
+#With R 3.6
 install.packages("devtools")
 library(devtools)
 
