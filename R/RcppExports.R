@@ -2,26 +2,16 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #'
-#' cIsdbscan
+#' isdbscan
 #'
-#' cIsdbscan for both matrix and HDF5Matrix
-#'
-#'@param data numeric matrix or integer matrix or HDF5Matrix
+#'@param dataset numeric matrix or integer matrix or HDF5Matrix
 #'@param k the number of clusters
 #'@param batch_size the size of the mini batches
-#'@return a list with the following attributes: centroids, WCSS_per_cluster, best_initialization, iters_per_initialization
 #'@details
-#'This function performs k-means clustering using mini batches.
-#'
-#'\strong{kmeans++}: kmeans++ initialization. Reference : http://theory.stanford.edu/~sergei/papers/kMeansPP-soda.pdf AND http://stackoverflow.com/questions/5466323/how-exactly-does-k-means-work
-#'
-#'\strong{random}: random selection of data rows as initial centroids
-#'
-#'@references
-#'https://github.com/mlampros/ClusterR
+#'This function performs the isdbscan algorithm over the specified dataset.
 #'
 #' @export
-cIsdbscan <- function(data, k, batch_size, stratif) {
-    .Call(`_ISDBSCAN_cIsdbscan`, data, k, batch_size, stratif)
+isdbscan <- function(data, k, batch_size, stratif, approximate, transpose) {
+    .Call(`_ISDBSCAN_isdbscan`, data, k, batch_size, stratif, approximate, transpose)
 }
 

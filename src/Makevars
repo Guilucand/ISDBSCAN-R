@@ -1,12 +1,12 @@
 BEACHMAT_LIBS=`echo 'beachmat::pkgconfig("PKG_LIBS")'|\
     "${R_HOME}/bin/R" --vanilla --slave`
-PKG_LIBS=$(BEACHMAT_LIBS)
 
-PKG_CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS)
-PKG_LIBS = $(BEACHMAT_LIBS)  -lstdc++
+PKG_CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS) -I../flann/src/cpp -std=c++17
+CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS) -I../flann/src/cpp -std=c++17
+PKG_LIBS = -L../flann/build/lib  -lflann_cpp_s -llz4 $(BEACHMAT_LIBS)  -lstdc++
 
 
-CXX_OBJS = RcppExports.o cIsdbscan.o
+CXX_OBJS = RcppExports.o isdbscan_interop.o isdbscan.o clustering.o biconnected.o approx_knn.o exact_knn.o
 
 
 OBJECTS = $(CXX_OBJS)
@@ -14,3 +14,5 @@ OBJECTS = $(CXX_OBJS)
 all: $(SHLIB)
 $(SHLIB): $(OBJECTS)
 
+%.o: %.cpp
+	g++ -std=gnu++11 -I"/usr/local/lib/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/RcppArmadillo/include" -I"/usr/local/lib/R/site-library/Rhdf5lib/include" -I"/usr/local/lib/R/site-library/beachmat/include" -I"/usr/local/lib/R/site-library/ClusterR/include" -I/usr/local/include -fopenmp -I../flann/src/cpp -std=c++17 -fpic -O3 -march=native -ggdb -c $< -o $@

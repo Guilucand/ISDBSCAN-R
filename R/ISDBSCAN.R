@@ -31,7 +31,7 @@ NULL
 setMethod(
     "ISDBSCAN",
     signature = signature(x ="ANY"),
-    definition = function(x, k=3, batch_size = blocksize(x), stratif = FALSE )
+    definition = function(x, k=3, batch_size = blocksize(x), stratif = FALSE, approximate = FALSE, transpose = FALSE )
     {
 
         if(!is(x, "matrix") & !is(x, "Matrix") & !is(x, "HDF5Matrix") &
@@ -41,7 +41,7 @@ setMethod(
 
         } else {
 
-            fit <- cIsdbscan(x, k, batch_size, stratif)
+            fit <- isdbscan(x, k, batch_size, stratif, approximate, transpose)
 
         }
 
