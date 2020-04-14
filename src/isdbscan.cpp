@@ -6,19 +6,22 @@
 #endif
 
 #include <iostream>
+#include <algorithm>
 #include "structs.h"
 #include "knn.h"
-#include "biconnected.h"
+#include "influence_space.h"
 #include "clustering.h"
+#include "inflo.h"
+#include "stratifier.h"
 
-static void print_frequencies(std::vector<knn_biconnected> const& biconnected, int k) {
+static void print_frequencies(std::vector<knn_influence_space> const& influence_space, int k) {
 
     std::vector<int> cnts(k + 1, 0);
-    for (auto &x : biconnected) {
+    for (auto &x : influence_space) {
         cnts[x.size()]++;
     }
 
-    std::cout << "BICONNECTED FREQUENCIES: " << std::endl;
+    std::cout << "influence_space FREQUENCIES: " << std::endl;
     for (int i = 0; i < k + 1; i++) {
         std::cout << "ksize = " << i << " count = " << cnts[i] << std::endl;
     }
@@ -49,6 +52,27 @@ std::vector<int> calculate_rnn(std::vector<knn_dists<double>> const& knn_dists, 
     }
 }
 
+std::vector<std::pair<double, int>> sort_points(std::vector<double> const& inflo, std::vector<double> const& nnk_dists) {
+
+    std::vector<std::pair<double, int>> result(inflo.size());
+
+    for (int i = 0; i < result.size(); i++) {
+        result[i] = std::make_pair(i, inflo[i] + nnk_dists[i]);
+    }
+
+    std::sort(result.begin(), result.end());
+
+    return result;
+}
+
+std::vector<int> build_ranks_map(std::vector<std::pair<double, int>> const& sorted_pts) {
+    std::vector<int> result(sorted_pts.size());
+    for (int i = 0; i < result.size(); i++) {
+        result[sorted_pts[i].second] = i;
+    }
+    return result;
+}
+
 IsdbscanResult isdbscan(std::vector<kd_point<double>> dataset, int k, int batch_size, bool stratif, bool approximate) {
 
     std::cout << "Dataset size: (" << dataset.size() << "x" << (dataset.size() ? dataset.front().features.size() : 0) << ")" << std::endl;
@@ -67,43 +91,40 @@ IsdbscanResult isdbscan(std::vector<kd_point<double>> dataset, int k, int batch_
 
         auto knn_dists = calc_knn_dists(dataset, k, approximate);
 
-        auto biconnected = find_biconnected(knn_dists, k);
-        print_frequencies(biconnected, k);
+        auto influence_space = find_influence_space(knn_dists, k);
+        print_frequencies(influence_space, k);
 
         if (!stratif){
-            auto clusteringRes = calc_cluster(biconnected, k, border);
+            auto clustering_res = calc_cluster(influence_space, k, border);
             return IsdbscanResult {
-                /*.clusters = */ clusteringRes
+                /*.clusters = */ clustering_res
             };
         }
-
-        //    Rcpp::IntegerVector nOfIsk(data_n_rows);
 //    Rcpp::NumericMatrix submat(data_n_rows, data_n_cols);
-//    Rcpp::NumericMatrix knnDists(data_n_rows, k);
-//    Rcpp::IntegerMatrix knnIdx(data_n_rows, k);
-//    Rcpp::NumericVector tmp(data_n_cols);
-//    Rcpp::IntegerVector nOfRNN(data_n_rows);
 //    Rcpp::IntegerMatrix calIsk(data_n_rows,data_n_cols);
 //    Rcpp::LogicalVector border(data_n_rows);
         else{
             double max_inflo;
             double max_nndist;
-//            Rcpp::NumericVector NNdistVector(data_n_rows); //da creare solo se stratification == true;
-//            Rcpp::NumericVector INFLOVector(data_n_rows);
-//            Rcpp::IntegerVector map(data_n_rows);
-//            Rcpp::IntegerVector newOrder(data_n_rows);
-//            Rcpp::NumericVector INFLOPlusNNdist(data_n_rows);
-//            Rcpp::IntegerVector layerVector(data_n_rows);
-            auto nndist = calculate_nnk_dist(knn_dists, k, max_nndist);
+
+            auto nnk_dist = calculate_nnk_dist(knn_dists, k, max_nndist);
             auto nof_rnn = calculate_rnn(knn_dists, k);
-//            calculateINFLO(knnDists,knnIdx,nOfIsk,INFLOVector, k, data_n_rows, max_inflo);
-//            calculateINFLOCorrect(nOfRNN, nOfIsk, INFLOVector, data_n_rows);
-//            calculateINFLONorm(INFLOVector, data_n_rows, max_inflo, max_NNdist);
-//            sortPoints(INFLOVector,NNdistVector, map,newOrder, INFLOPlusNNdist, data_n_rows);
-//            stratifier(INFLOVector,NNdistVector,INFLOPlusNNdist,map,newOrder,layerVector,data_n_rows);
+            std::vector<double> inflo_vector =
+                    calculate_inflo(knn_dists, influence_space, max_inflo);
+            calculate_inflo_correct(nof_rnn, influence_space, inflo_vector);
+            calculate_inflo_norm(inflo_vector, max_inflo, max_nndist);
+
+            auto inflo_plus_nn_ordered = sort_points(inflo_vector, nnk_dist);
+            auto ranks_map = build_ranks_map(inflo_plus_nn_ordered);
+
+            auto layer_vec = stratifier(inflo_vector, inflo_plus_nn_ordered, ranks_map);
 //
-//            Rcpp::IntegerVector clusteringRes = calc_cluster(calIsk,data_n_rows,k,nOfIsk,border,map);
-//            return Rcpp::List::create(Rcpp::Named("clusters") = clusteringRes, Rcpp::Named("layer") = layerVector, Rcpp::Named("border") = border);
+            auto clustering_res = calc_cluster(influence_space, k, border);
+            return IsdbscanResult {
+                    /*.clusters = */ clustering_res,
+                    /* .layer = */ layer_vec,
+                    /* .border = */ border
+            };
         }
     }
 //    else{
@@ -156,7 +177,7 @@ IsdbscanResult isdbscan(std::vector<kd_point<double>> dataset, int k, int batch_
 //            calculateNNKdist(knnDists,NNdistVector,k,data_n_rows, max_NNdist);
 //            calculateRNN(knnIdx,nOfRNN,k,data_n_rows);
 //            calculateINFLO(knnDists,knnIdx,nOfIsk,INFLOVector, k, data_n_rows, max_inflo);
-//            calculateINFLOCorrect(nOfRNN, nOfIsk, INFLOVector, data_n_rows);
+//            calculate_inflo_correct(nOfRNN, nOfIsk, INFLOVector, data_n_rows);
 //            calculateINFLONorm(INFLOVector, data_n_rows, max_inflo, max_NNdist);
 //            sortPoints(INFLOVector,NNdistVector, map,newOrder, INFLOPlusNNdist, data_n_rows);
 //            stratifier(INFLOVector,NNdistVector,INFLOPlusNNdist,map,newOrder,layerVector,data_n_rows);

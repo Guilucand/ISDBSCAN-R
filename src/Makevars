@@ -6,7 +6,7 @@ CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS) -I../flann/src/cpp -std=c++17
 PKG_LIBS = -L../flann/build/lib  -lflann_cpp_s -llz4 $(BEACHMAT_LIBS)  -lstdc++
 
 
-CXX_OBJS = RcppExports.o isdbscan_interop.o isdbscan.o clustering.o biconnected.o approx_knn.o exact_knn.o
+CXX_OBJS = RcppExports.o approx_knn.o clustering.o exact_knn.o inflo.o influence_space.o isdbscan.o isdbscan_interop.o
 
 
 OBJECTS = $(CXX_OBJS)

@@ -8,11 +8,11 @@
 struct expand_cluster_stack {
     bool init;
     int pos_init;
-    knn_biconnected::const_iterator it;
+    knn_influence_space::const_iterator it;
 };
 
 // Expand cluster iterative (to avoid stack overflows)
-static void expand_cluster_iter(std::vector<knn_biconnected> const& kneighbours, std::vector<int> &all_clusters,
+static void expand_cluster_iter(std::vector<knn_influence_space> const& kneighbours, std::vector<int> &all_clusters,
                        std::vector<int> &current_cluster, int pos_init, int cluster, int k,
                        int &assigned, std::vector<bool> &border) {
 
@@ -58,7 +58,7 @@ static void expand_cluster_iter(std::vector<knn_biconnected> const& kneighbours,
 }
 
 // Expand cluster
-static void expand_cluster_rec(std::vector<knn_biconnected> const& kneighbours, std::vector<int> &all_clusters,
+static void expand_cluster_rec(std::vector<knn_influence_space> const& kneighbours, std::vector<int> &all_clusters,
                                std::vector<int> &current_cluster, int pos_init, int cluster, int k,
                                int &assigned, std::vector<bool> &border) {
     if (kneighbours[pos_init].size() > (k * 2.0 / 3.0)) {
@@ -77,7 +77,7 @@ static void expand_cluster_rec(std::vector<knn_biconnected> const& kneighbours, 
 }
 
 std::vector<int>
-calc_cluster(std::vector<knn_biconnected> const& kneighbours, int k, std::vector<bool> &border) {
+calc_cluster(std::vector<knn_influence_space> const& kneighbours, int k, std::vector<bool> &border) {
 
     std::cout << "Computing clusters..." << std::endl;
     int nsamples = kneighbours.size();

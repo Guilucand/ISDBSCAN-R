@@ -8,9 +8,18 @@ using namespace Rcpp;
 IsdbscanResult isdbscan(std::vector<kd_point<double>> dataset, int k, int batch_size, bool stratif, bool approximate);
 
 static Rcpp::List isdbscanToRcppList(IsdbscanResult const& result) {
-    return Rcpp::List::create(
-            Rcpp::Named("clusters") = result.clusters
-    );
+
+    if (!result.layer.empty() && !result.border.empty()) {
+        return Rcpp::List::create(
+                Rcpp::Named("clusters") = result.clusters,
+                Rcpp::Named("layer") = result.layer,
+                Rcpp::Named("border") = result.border);
+    }
+    else {
+        return Rcpp::List::create(
+                Rcpp::Named("clusters") = result.clusters
+        );
+    }
 }
 
 template <class T>

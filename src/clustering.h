@@ -8,6 +8,6 @@
 #include "structs.h"
 
 std::vector<int>
-    calc_cluster(std::vector<knn_biconnected> const& kneighbours, int k, std::vector<bool> &border);
+    calc_cluster(std::vector<knn_influence_space> const& kneighbours, int k, std::vector<bool> &border);
 
 #endif //ISDBSCAN_R_MASTER_CLUSTERING_H

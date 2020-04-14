@@ -18,13 +18,15 @@ struct knn_dist {
     }
 };
 
-using knn_biconnected = std::vector<int>;
+using knn_influence_space = std::vector<int>;
 
 template <class T>
 using knn_dists = std::vector<knn_dist<T>>;
 
 struct IsdbscanResult {
     std::vector<int> clusters;
+    std::vector<int> layer;
+    std::vector<bool> border;
 };
 
 #endif //ISDBSCAN_R_MASTER_STRUCTS_H
