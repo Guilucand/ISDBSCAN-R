@@ -37,10 +37,10 @@ std::vector<kd_point<double>> read_file(const char *file_name) {
     return dataset;
 }
 
-void write_output(IsdbscanResult result, const char *path) {
+void write_output(std::vector<int> result, const char *path) {
     FILE *out = fopen(path, "w");
 
-    for (int x : result.clusters) {
+    for (int x : result) {
         fprintf(out, "%d\n", x);
     }
     fclose(out);
@@ -49,9 +49,15 @@ void write_output(IsdbscanResult result, const char *path) {
 int main(int argc, const char **argv) {
 
     if (argc < 4) return 1;
+
+    bool stratif = argc > 4;
+
     auto dataset = read_file(argv[1]);
 
-    auto result = isdbscan(dataset, atoi(argv[3]), dataset.size(), false, false);
-    write_output(result, argv[2]);
+    auto result = isdbscan(dataset, atoi(argv[3]), dataset.size(), stratif, false);
+    write_output(result.clusters, argv[2]);
+    if (stratif) {
+        write_output(result.layer, argv[4]);
+    }
 
 }

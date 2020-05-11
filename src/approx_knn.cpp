@@ -30,7 +30,7 @@ std::vector<knn_dists<double>>
     index.knnSearch(flann_dataset, indices, dists_flann, k + 1, flann::SearchParams(checks));
 
     size_t nsamples = data.size();
-    size_t nfeatures = !data.empty() ? data.front().features.size() : 0;
+//    size_t nfeatures = !data.empty() ? data.front().features.size() : 0;
 
     std::vector<knn_dists<double>> result(nsamples);
 

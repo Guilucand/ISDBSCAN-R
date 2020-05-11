@@ -59,7 +59,6 @@ public:
             return;
         }
 
-        It it = begin;
         int dimcnt = (*begin).features.size();
 
         std::pair<double, int> stdev = {0, -1};
@@ -128,7 +127,6 @@ public:
 
         static int cnt = 0;
         cnt++;
-        int myval = cnt;
 
         for (auto &pt : points) {
             dists.add_element(pt);

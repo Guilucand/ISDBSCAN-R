@@ -2,9 +2,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 from cycler import cycler
 from matplotlib.animation import FuncAnimation
+import os
 
 
-def show_plot(file_name, cluster_name, interactive = False):
+def show_plot(file_name, cluster_name, directory, interactive=False):
     data = [[float(x[0].strip()), float(x[1].strip())] for x in
             [y.split() for y in open(file_name, "r").readlines()]]
     data = np.array(list(map(list, zip(*data))))
@@ -14,11 +15,11 @@ def show_plot(file_name, cluster_name, interactive = False):
     fig = plt.figure()
     ax = fig.add_axes([0, 0, 1, 1])
 
-    NUM_COLORS = 20
+    clus_num = np.max(clusters)
+
+    NUM_COLORS = (clus_num + 1)
     SIZE = 10
     cm = plt.get_cmap('gist_rainbow')
-
-    clus_num = np.max(clusters)
 
     def plot_cluster(i):
         if i > clus_num:
@@ -37,9 +38,18 @@ def show_plot(file_name, cluster_name, interactive = False):
 
     init_ax()
     ax.scatter(data[0][clusters == -2], data[1][clusters == -2], s=SIZE, color='black')
+
+    print(f"Noise points count: {np.sum(clusters == -2)}")
+
     for i in range(0, clus_num + 1):
         plot_cluster(i)
-    fig.savefig(f'results/{cluster_name.split("/")[-1][:-3]}.png')
+
+    try:
+        os.mkdir(directory)
+    except Exception:
+        pass
+
+    fig.savefig(f'{directory}/{cluster_name.split("/")[-1][:-4]}.png')
 
     if interactive:
         ax.cla()

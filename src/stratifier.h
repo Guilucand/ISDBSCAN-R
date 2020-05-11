@@ -7,8 +7,9 @@
 
 #include "structs.h"
 
-std::vector<int> stratifier(std::vector<double> const& inflo,
-                            std::vector<std::pair<double, int>> const& inflo_plus_nn_sorted,
-                            std::vector<int> const& ranks_map);
+std::vector<int> stratifier(std::vector<double> const& ainflo,
+                            std::vector<std::pair<double, int>> const& dfk_sorted,
+                            std::vector<int> const& ranks_map,
+                            int &noise_layer);
 
 #endif //ISDBSCAN_R_MASTER_STRATIFIER_H

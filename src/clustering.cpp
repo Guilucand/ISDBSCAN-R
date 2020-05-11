@@ -6,7 +6,6 @@
 #include <iostream>
 
 struct expand_cluster_stack {
-    bool init;
     int pos_init;
     knn_influence_space::const_iterator it;
 };
@@ -17,18 +16,13 @@ static void expand_cluster_iter(std::vector<knn_influence_space> const& kneighbo
                        int &assigned, std::vector<bool> &border) {
 
     std::vector<expand_cluster_stack> stack;
-    stack.push_back({false, pos_init});
+    stack.push_back({pos_init, kneighbours[pos_init].begin()});
 
     while (!stack.empty()) {
 
         bool do_recurse = false;
 
         expand_cluster_stack &frame = stack.back();
-
-        if (!frame.init) {
-            frame.init = true;
-            frame.it = kneighbours[frame.pos_init].begin();
-        }
 
         if (kneighbours[frame.pos_init].size() > (k * 2.0 / 3.0)) {
             while (frame.it != kneighbours[frame.pos_init].end()) {
@@ -40,7 +34,7 @@ static void expand_cluster_iter(std::vector<knn_influence_space> const& kneighbo
 
                     ++frame.it;
                     // Do recursion call
-                    stack.push_back({false, kidx});
+                    stack.push_back({kidx, kneighbours[kidx].begin()});
                     do_recurse = true;
                     break;
                 }
@@ -77,28 +71,36 @@ static void expand_cluster_rec(std::vector<knn_influence_space> const& kneighbou
 }
 
 std::vector<int>
-calc_cluster(std::vector<knn_influence_space> const& kneighbours, int k, std::vector<bool> &border) {
+calc_cluster(std::vector<knn_influence_space> const& kneighbours, int k, std::vector<bool> &border, std::vector<int> const& ranks_map, std::vector<bool> noise) {
 
     std::cout << "Computing clusters..." << std::endl;
     int nsamples = kneighbours.size();
 
     std::vector<int> all_clusters(nsamples, -1);
 
+    // Set as noise
+    for (int i = 0; i < noise.size(); i++) {
+        if (noise[i]) all_clusters[i] = -2;
+    }
+
     int cluster = 0;
 
     int assigned = 0;
 
-    for (int pos_init = 0; pos_init < nsamples; pos_init++) {
-        if (all_clusters[pos_init] != -1) continue;
-        all_clusters[pos_init] = cluster;
+    for (int idx_pos_init = 0; idx_pos_init < nsamples; idx_pos_init++) {
+
+        int mapped_pos = ranks_map[idx_pos_init];
+
+        if (all_clusters[mapped_pos] != -1) continue;
+        all_clusters[mapped_pos] = cluster;
         assigned++;
 
         int just_assigned = 0;
         std::vector<int> current_cluster;
-        current_cluster.push_back(pos_init);
+        current_cluster.push_back(mapped_pos);
 
 //        expand_cluster_rec(kneighbours, all_clusters, current_cluster, pos_init, cluster, k, just_assigned, border);
-        expand_cluster_iter(kneighbours, all_clusters, current_cluster, pos_init, cluster, k, just_assigned, border);
+        expand_cluster_iter(kneighbours, all_clusters, current_cluster, mapped_pos, cluster, k, just_assigned, border);
 
         if (just_assigned >= k) {
             std::cout << "Assigned cluster " << cluster << " with " << just_assigned << " points" << std::endl;
@@ -107,7 +109,7 @@ calc_cluster(std::vector<knn_influence_space> const& kneighbours, int k, std::ve
         }
         else {
             for (auto &idxPoint : current_cluster) {
-                if (idxPoint != pos_init) {
+                if (idxPoint != mapped_pos) {
                     if (kneighbours[idxPoint].empty()) {
                         std::cout << "Error!" << std::endl;
                         all_clusters[idxPoint] = -1;
@@ -121,7 +123,7 @@ calc_cluster(std::vector<knn_influence_space> const& kneighbours, int k, std::ve
                 std::cout << "Not assigned cluster " << cluster << " with "
                           << just_assigned << " points" << std::endl;
             }
-            all_clusters[pos_init] = -2;
+            all_clusters[mapped_pos] = -2;
         }
     }
 

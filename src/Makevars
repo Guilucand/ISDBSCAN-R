@@ -6,7 +6,7 @@ CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS) -I../flann/src/cpp -std=c++17
 PKG_LIBS = -L../flann/build/lib  -lflann_cpp_s -llz4 $(BEACHMAT_LIBS)  -lstdc++
 
 
-CXX_OBJS = RcppExports.o approx_knn.o clustering.o exact_knn.o inflo.o influence_space.o isdbscan.o isdbscan_interop.o
+CXX_OBJS = RcppExports.o approx_knn.o clustering.o exact_knn.o inflo.o influence_space.o isdbscan.o isdbscan_interop.o stratifier.o
 
 
 OBJECTS = $(CXX_OBJS)
@@ -15,4 +15,4 @@ all: $(SHLIB)
 $(SHLIB): $(OBJECTS)
 
 %.o: %.cpp
-	g++ -std=gnu++11 -I"/usr/local/lib/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/RcppArmadillo/include" -I"/usr/local/lib/R/site-library/Rhdf5lib/include" -I"/usr/local/lib/R/site-library/beachmat/include" -I"/usr/local/lib/R/site-library/ClusterR/include" -I/usr/local/include -fopenmp -I../flann/src/cpp -std=c++17 -fpic -O3 -march=native -ggdb -c $< -o $@
+	g++ -std=gnu++11 -I"/usr/local/lib/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/RcppArmadillo/include" -I"/usr/local/lib/R/site-library/Rhdf5lib/include" -I"/usr/local/lib/R/site-library/beachmat/include" -I"/usr/local/lib/R/site-library/ClusterR/include" -I/usr/local/include -fopenmp -I../flann/src/cpp -std=c++17 -fpic -O0 -march=native -ggdb -c $< -o $@
